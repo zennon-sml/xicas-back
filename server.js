@@ -1,8 +1,8 @@
-const express = require("express");
-const { sequelize } = require("./db");
-const adminRoutes = require("./routes/admins");
-const productRoutes = require("./routes/products");
+import express from "express"
 import dotenv from "dotenv"
+import sequelize from "./db.js"
+import adminRoutes from "./routes/admins.js"
+import productRoutes from "./routes/products.js"
 
 dotenv.config()
 

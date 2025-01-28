@@ -1,5 +1,5 @@
 import express from "express"
-import Product from "../models/product";
+import Product from "../models/product.js";
 
 const router = express.Router();
 
@@ -10,7 +10,7 @@ router.post("/", async (req, res) => {
     const product = await Product.create({ name, barcode, description, price, cost, image });
     res.status(201).json(product);
   } catch (error) {
-    res.status(400).json({ error: error.message || "An error occurred" });
+    res.status(400).json({ error: error.message || "Erro ao criar produto" });
   }
 });
 
@@ -20,7 +20,7 @@ router.get("/", async (_req, res) => {
     const products = await Product.findAll();
     res.status(200).json(products);
   } catch (error) {
-    res.status(400).json({ error: error.message || "An error occurred" });
+    res.status(400).json({ error: error.message || "Erro ao listar produtos" });
   }
 });
 
@@ -32,10 +32,10 @@ router.get("/:id", async (req, res) => {
     if (product) {
       res.status(200).json(product);
     } else {
-      res.status(404).json({ error: "Product not found" });
+      res.status(404).json({ error: "Produto não encontrado" });
     }
   } catch (error) {
-    res.status(400).json({ error: error.message || "An error occurred" });
+    res.status(400).json({ error: error.message || "Erro ao listar produto único" });
   }
 });
 
@@ -49,10 +49,10 @@ router.put("/:id", async (req, res) => {
       await product.update({ name, barcode, description, price, cost, image });
       res.status(200).json(product);
     } else {
-      res.status(404).json({ error: "Product not found" });
+      res.status(404).json({ error: "Produto não encontrado" });
     }
   } catch (error) {
-    res.status(400).json({ error: error.message || "An error occurred" });
+    res.status(400).json({ error: error.message || "Erro ao atualizar produto" });
   }
 });
 
@@ -65,10 +65,10 @@ router.delete("/:id", async (req, res) => {
       await product.destroy();
       res.status(204).send();
     } else {
-      res.status(404).json({ error: "Product not found" });
+      res.status(404).json({ error: "Produto não encontrado" });
     }
   } catch (error) {
-    res.status(400).json({ error: error.message || "An error occurred" });
+    res.status(400).json({ error: error.message || "Erro ao deletar produto" });
   }
 });
 
