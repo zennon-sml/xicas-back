@@ -20,16 +20,16 @@ app.use(cors({
 }))
 
 // Routes
-app.use("/api/admins", adminRoutes);
-app.use("/api/products", productRoutes);
+app.use("/api/admins", adminRoutes)
+app.use("/api/products", productRoutes)
 
 // Sync database and start server
 sequelize
   .sync()
   .then(() => {
-    console.log("Database synced successfully.");
+    console.log("Database synced successfully.")
     app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
   })
   .catch((error) => {
-    console.error("Error syncing database:", error.message);
-  });
+    console.error("Error syncing database:", error.message)
+  })
