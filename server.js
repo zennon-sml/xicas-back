@@ -14,10 +14,16 @@ const PORT = process.env.PORT || 3000;
 // Middleware
 app.use(express.json());
 app.use(cookieParser())
-app.use(cors({
-  origin: "localhost:3000",
-  credentials: true
-}))
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      callback(null, origin || "*"); // Allow any origin dynamically
+    },
+    credentials: true, // Allow credentials (cookies, authorization headers)
+    allowedHeaders: ["Content-Type", "Authorization"], // Allow these headers
+    methods: ["GET", "POST", "PUT", "DELETE"], // Allow these methods
+  })
+)
 
 // Routes
 app.use("/api/admins", adminRoutes)
