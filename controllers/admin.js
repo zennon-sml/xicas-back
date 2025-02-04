@@ -19,20 +19,24 @@ export const loginAdminWithEmail = async (req, res) => {
 		})
 		console.log(email, password, admin.password_hash);
 		
-		if (admin.password_hash == password) {
-			const token = jwt.sign( { email: admin.email }, process.env.SECRET_KEY, { expiresIn: "1h" })
-			res.cookie("token", token, {
-				httpOnly: true,
-				secure: process.env.NODE_ENV === "production",
-				sameSite: "strict",
-			})
-			console.log(token);
+		if (admin) {
+			if (admin.password_hash == password) {
+				const token = jwt.sign({ email: admin.email }, process.env.SECRET_KEY, { expiresIn: "1h" })
+				res.cookie("token", token, {
+					httpOnly: true,
+					secure: process.env.NODE_ENV === "production",
+					sameSite: "strict",
+				})
+				console.log(token);
 
-			res.status(200).json({ messagem: "Usúario encontrado", token })
+				res.status(200).json({ message: "Usúario encontrado", token })
+			} else {
+				res.status(404).json({ message: "Senha incorreta" })
+			}
 		} else {
 			res.status(404).json({ message: "Usúario não encontrado" })
 		}
 	} catch (error) {
-		res.status(500).json({ error: error.message || "Erro ao logar" })
+		res.status(404).json({ message: "Usúario não encontrado" })
 	}
 }
