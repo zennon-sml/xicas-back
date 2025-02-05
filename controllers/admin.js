@@ -21,7 +21,11 @@ export const loginAdminWithEmail = async (req, res) => {
 		
 		if (admin) {
 			if (admin.password_hash == password) {
-				const token = jwt.sign({ email: admin.email }, process.env.SECRET_KEY, { expiresIn: "1h" })
+				const token = jwt.sign(
+					{ email: admin.email }, 
+					process.env.SECRET_KEY,  // Ensure this matches Next.js
+					{ expiresIn: "1h", algorithm: "HS256" } // Explicitly set HS256
+				  );
 				res.cookie("token", token, {
 					httpOnly: true,
 					secure: process.env.NODE_ENV === "production",
@@ -37,6 +41,6 @@ export const loginAdminWithEmail = async (req, res) => {
 			res.status(404).json({ message: "Usúario não encontrado" })
 		}
 	} catch (error) {
-		res.status(404).json({ message: "Usúario não encontrado" })
+		res.status(404).json({ message: error.message})
 	}
 }
