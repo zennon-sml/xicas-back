@@ -15,6 +15,7 @@ CREATE TABLE products (
     description TEXT,
     price NUMERIC(10, 2) NOT NULL,
     cost NUMERIC(10, 2) NOT NULL,
+    quantity NUMERIC(10, 2) NOT NULL,
     image TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
