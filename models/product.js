@@ -11,6 +11,7 @@ Product.init(
 		description: { type: DataTypes.TEXT },
 		price: { type: DataTypes.DECIMAL(10, 2), allowNull: false },
 		cost: { type: DataTypes.DECIMAL(10, 2), allowNull: false },
+		quantity: { type: DataTypes.DECIMAL(10, 2), allowNull: true},
 		image: { type: DataTypes.TEXT },
 		created_at: { type: DataTypes.DATE, defaultValue: DataTypes.NOW },
 		updated_at: { type: DataTypes.DATE, defaultValue: DataTypes.NOW },

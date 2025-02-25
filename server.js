@@ -3,6 +3,7 @@ import dotenv from "dotenv"
 import sequelize from "./db.js"
 import adminRoutes from "./routes/admins.js"
 import productRoutes from "./routes/products.js"
+import salesRoutes from "./routes/sales.js"
 import cookieParser from "cookie-parser"
 import cors from "cors"
 
@@ -28,6 +29,7 @@ app.use(
 // Routes
 app.use("/api/admins", adminRoutes)
 app.use("/api/products", productRoutes)
+app.use("/api/sales", salesRoutes);
 
 // Sync database and start server
 sequelize
