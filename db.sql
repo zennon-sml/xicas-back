@@ -31,7 +31,7 @@ CREATE TABLE sales (
   -- chave estrangeira para tabela admin
   CONSTRAINT fk_saler
     FOREIGN KEY(saler_id)
-    REFERENCES admin(id)
+    REFERENCES admins(id)
     ON DELETE SET NULL
 );
 
