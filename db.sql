@@ -21,18 +21,30 @@ CREATE TABLE products (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-
 -- Create table for sales
 CREATE TABLE sales (
-    id SERIAL PRIMARY KEY,
-    product_id INT NOT NULL,
-    quantity INT NOT NULL,
-    total NUMERIC(10, 2) NOT NULL,
-    admin_id INT,
-    sale_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    CONSTRAINT fk_product_sale FOREIGN KEY (product_id) REFERENCES products (id),
-    CONSTRAINT fk_admin_sale FOREIGN KEY (admin_id) REFERENCES admins (id)
+  id SERIAL PRIMARY KEY,
+  saler_id INTEGER NULL,
+  products JSONB NOT NULL DEFAULT '[]',
+  sale_date TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW(),
+  
+  -- chave estrangeira para tabela admin
+  CONSTRAINT fk_saler
+    FOREIGN KEY(saler_id)
+    REFERENCES admin(id)
+    ON DELETE SET NULL
 );
+
+-- CREATE TABLE sales (
+--     id SERIAL PRIMARY KEY,
+--     product_id INT NOT NULL,
+--     quantity INT NOT NULL,
+--     total NUMERIC(10, 2) NOT NULL,
+--     admin_id INT,
+--     sale_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+--     CONSTRAINT fk_product_sale FOREIGN KEY (product_id) REFERENCES products (id),
+--     CONSTRAINT fk_admin_sale FOREIGN KEY (admin_id) REFERENCES admins (id)
+-- );
 
 CREATE FUNCTION update_product_quantity_on_sale() RETURNS TRIGGER AS $$
 BEGIN
